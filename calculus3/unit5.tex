@@ -1,0 +1,234 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{mathtools} % for Aboxed inside align
+
+
+\graphicspath{{./images/}}
+
+\title{Unit 5}
+\author{Strannik}
+\date{2023 September - 2023 December}
+
+
+\begin{document}
+\maketitle
+\section{Vector Fields}
+\begin{itemize}
+  \item In 2D the verctor field will be $F(x,y) = P\hat{i} + Q\hat{j}$
+  \item In 3D the verctor field will be $F(x,y,z) = P\hat{i} + Q\hat{j} + R\hat{k}$
+  \begin{itemize}
+    \item $P$, $Q$ and $R$ are defined functions
+    \item It can also show up like this: $F(x,y,z) = M\hat{i} + N\hat{j} + P\hat{k}$
+  \end{itemize}
+  \item $F(x,y)$ is a \textbf{conservative vector field} for $f(x,y)$ if $F(x,y) = \nabla f(x,y)$, where $f(x,y)$ is a \textbf{potential function}
+\end{itemize}
+
+
+\section{Divergence \& Curl}
+\begin{itemize}
+  \item Divergence and curl are two characteristics of how "flow" is "behaving" on a vector field in a small neighborhood around a given point $P$
+  \item \textbf{Divergence} is a measurement of how fluid/flow enters the neighborhood around $P$ compared to how much leaves
+  \begin{itemize}
+    \item If more fluid/flow enters the neighborhood than leaves it, then the divergence will be $(-)$ at $P$ (think of this as fluid/flow gathering at the point)
+    \item If more fluid/flow leaves than enters, then the divergence will be $(+)$ at $P$; this is called \underline{divergent} (think of fluid/flow leaving the point)
+    \item If the same amount of fluid/flow enters as leaves, then the divergence will be 0; this is called \underline{incompressible}
+    \item Div$F$ is a \underline{scalar}
+  \end{itemize}
+  \begin{align}
+    \nabla = \frac{\partial}{\partial x}\hat{i} + \frac{\partial}{\partial y}\hat{j} + \frac{\partial}{\partial z}\hat{k} \\
+    F(x,y,z) = P\hat{i} + Q\hat{j} + R\hat{k} \\
+    \textrm{Div}F = \nabla\cdot F = \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}
+  \end{align}
+  \item \textbf{Curl} is a measurement of rotation of the vector field in the neighborhood around $P$
+  \begin{itemize}
+    \item If curl is $(+)$ at $P$, then flow/fluid/paddle would rotate counterclockwise at the point
+    \item If curl is $(-)$ at $P$, then flow/fluid/paddle would rotate clockwise at the point
+    \item If curl is 0 at $P$, then flow/fluid/paddle would not rotate at the point; this is called irrotational
+    \item Curl$F$ is a \underline{vector}, so \underline{I think} it works only when there is no $\hat{k}$ component in the vector field, because cross product gives you a perpendicular vector so only in this case you can determine sign of the resultant vector (which will only have $\hat{k}$ component) \textbf{ASK ABOUT THIS}
+    \item \textbf{Does the "paddle" alway spin counterclockwise in the direction of the curl?}
+    \item Maximum rate of rotation is the magnitude of curl, which happens only if "paddle" is parallel to the curl
+  \end{itemize}
+  \begin{align}
+    \textrm{Curl}F = \nabla\times F
+  \end{align}
+\end{itemize}
+
+
+\section{Line Integals}
+\begin{itemize}
+  \item Single integral can represent area or mass of a straight line if the given function is a mass density function
+    \begin{align}
+      m = \int\limits_c f(x,y) \, ds = \int_{a}^{b} f(x(t), y(t))\|\vec{r}\,'(t)\|\, dt
+    \end{align}
+  \item $c$ must be smooth
+  \item For segments (line between given points) we want $0 \leq t \leq 1$, then use these for your vector function:
+  \begin{align}
+    \begin{split}
+      x = c_1 +k_1t \\
+      y = c_2 +k_2t
+    \end{split}
+  \end{align}
+\item For non-segments do \underline{trivial} parametric equations: change the independent variable, $x$, (\textbf{WHAT IF THERE ARE MULTIPLE?}) to $t$ (be cautious about your integral bouds)
+  \item When given something like $dx + dy$ in the integral instead of $ds$, take derivative of your substitutions ($x = g(t) \rightarrow dx = g'(t)$) and use all of them as substitutions, then factor out $dt$
+\item \underline{Work} done by moving a "particle" along a curve ($c$ or $\vec{r}(t)$) through a \underline{force field} ($F(x,y,z)$) is represented by:
+  \begin{align}
+    w = \int_{a}^{b} F(\vec{r}(t))\cdot\vec{r}\,'(t) \, dt = \int\limits_c F\cdot dr
+  \end{align}
+\end{itemize}
+
+
+\section{Line Integals on Conservative Vector Fields}
+\begin{itemize}
+  \item The line integral on conservative vector fields is \textbf{independent of path}, which means that integral's value will be the same regardless of the curve/path we choose between the endpoints
+  \begin{itemize}
+    \item For conservative vector fields we don't even define a curve, $c$
+    \item Whatever the path may be, if the curve ends where it starts (is closed), work is zero (only in conservative vector fields)
+  \end{itemize}
+  \item \textbf{Fundamental Theorem of Line Integrals}:
+  \begin{align}
+    \int\limits_c F\cdot dr = \int\limits_c \nabla f\cdot dr = f(b) - f(a)
+  \end{align}
+  \item To evaluate such liner integral:
+  \begin{enumerate}
+    \item Make sure that the vector field is conservative
+    \begin{itemize}
+      \item Curl must be equal to 0 when a vector field is conservative 
+      \item Alternatively, think about it like this: derivative of vector field's $x$-component with respect to $y$ must be equal to derivative of $y$-component with respect to $x$\dots
+    \end{itemize}
+    \item Find antiderivative of the $x$-component but instead of $+c$ append $+g(y)$
+    \item Find derivative with respect to $y$ of the antiderivative from previous step
+    \item Set the actual derivative with respect to $y$ equal to the one from previous step, then solve for $g'(y)$
+    \item Find antiderivative of $g'(y)$ (don't forget to append $+c$)
+    \item Combine everything to get $f(x,y)$ (keep the $+c$)
+    \item Plug in the given points, $(x_1, y_1)$ and $(x_2, y_2)$: $f(x_2, y_2) - f(x_1, y_1)$
+  \end{enumerate}
+  \item Flow integral (also called circulation if the curve is a closed loop):
+  \begin{align}
+    \int\limits_c F \cdot T \, ds = \int\limits_c F \cdot dr
+  \end{align}
+\item Flux along a smooth closed plane curve is given by this (for the first integral, just sum up all integrals along the curves that make it a closed loop):
+  \begin{align}
+    \oint\limits_c Pdy - Qdx
+  \end{align}
+\end{itemize}
+
+
+\section{Green's Theorem}
+  \begin{align}
+    w = \oint\limits_c F\cdot dr = \oint\limits_c Pdx + Qdy = \iint\limits_R \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) \, dA
+  \end{align}
+\begin{itemize}
+  \item It represents \underline{work} done along a curve, $c$, through a vector field \underline{in 2D}
+  \begin{itemize}
+    \item Even though the curve starts and ends at the same point, work is not zero because the vector field is \underline{not conservative}
+  \end{itemize}
+  \item It can also represent \underline{circulation}
+  \item Simple (doesn't cross itself), closed curve, $c$, encloses a region on a \underline{plane} and is traveled in positive, counterclockwise direction through non-conservative vector field
+  \item Area enclosed by any simple, closed curve can be found with this:
+  \begin{align}
+    A = \frac{1}{2}\oint\limits_c -ydx + xdy
+  \end{align}
+  \item Area of an ellipse:
+  \begin{align}
+    \begin{split}
+      \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1 \\
+      A = ab\pi
+    \end{split}
+  \end{align}
+  \item Flux:
+  \begin{align}
+    \iint\limits_R \left( \frac{\partial P}{\partial y} + \frac{\partial Q}{\partial x} \right) \, dA
+  \end{align}
+\end{itemize}
+
+
+\section{Surfaces}
+\subsection{Surface Integrals \& Parametric Surfaces \& Surface Area}
+\begin{itemize}
+  \item Mass of surface, $S$ or $g$, with mass density function, $f$, is given by:
+  \begin{align}
+    \begin{split}
+      m = \iint\limits_S f(x,y,z) \, dS &= \iint\limits_R f(x,y,g(x,y))\sqrt{(g_x)^2 + (g_y)^2 + 1} \, dA \\
+      &= \iint\limits_R f(x,g(x,z),z)\sqrt{(g_x)^2 + (g_z)^2 + 1} \, dA \\
+      &= \iint\limits_R f(g(x,z),y,z)\sqrt{(g_y)^2 + (g_z)^2 + 1} \, dA
+    \end{split} \label{integral-mass-of-surface}
+  \end{align}
+  \item Surface represented by function, $g$, is going to be parameterized to become vector function, $\vec{r}(u,v)$
+  \begin{align}
+    g(x,y,z) \rightarrow \vec{r}(u,v) = x(u,v)\hat{i} + y(u,v)\hat{j} + z(u,v)\hat{k}
+  \end{align}
+  \begin{itemize}
+    \item \textbf{Trivial parameterization}: for function already solved for a variable, let other variables be parameters
+    \item Try parameterizing like in polars but with different letters: $r = u$, $\theta = v$
+  \end{itemize}
+  \item Surface area of $\vec{r}$ is given by:
+  \begin{align}
+    \textrm{Surface area} = \iint\limits_D \|\vec{r}_u \times \vec{r}_v\| \, dA
+  \end{align}
+  \begin{itemize}
+    \item $D$ is the domain of $u$ and $v$
+    \item Notice how this is similar to the square root part of the surface integral (equation number \ref{integral-mass-of-surface})
+    \begin{itemize}
+      \item Mass density function is multiplied by surface area inside the surface integral
+    \end{itemize}
+  \end{itemize}
+  \item So \underline{parametric surface integral} looks like this:
+  \begin{align}
+    m = \iint\limits_D f(\vec{r}(u,v)) \cdot \|\vec{r}_u \times \vec{r}_v\| \, dA
+  \end{align}
+  \item When the surface is defined implicitly, you can use this formula:
+  \begin{align}
+    \textrm{Surface area} = \iint\limits_R \frac{\|\nabla g\|}{|\nabla g \cdot \hat{p}|} \right| \, dA
+  \end{align}
+  \begin{itemize}
+    \item Where $\hat{p}$ is a unit vector normal to $R$
+  \end{itemize}
+  \item If a vector field, $F$, contains a surface, $S$, then $F$ describes velocity of flow/fluid at any point across the surface
+  \begin{itemize}
+    \item The rate of flow is called \textbf{flux}
+    \item Surface integral through a vector field or \underline{flux integral} looks like this:
+    \begin{align}
+      \begin{split}
+        \textrm{Flux} &= \iint\limits_S F\cdot\hat{n} \, dS \\
+        &= \iint\limits_D F(\vec{r}(u,v))\cdot\frac{\vec{r}_u \times \vec{r}_v}{\|\vec{r}_u \times \vec{r}_v\|}\cdot\|\vec{r}_u\times\vec{r}_v\| \, dA \\
+        &= \iint\limits_R F \cdot \frac{\nabla g}{\|\nabla g\|} \cdot \frac{\|\nabla g\|}{\|\nabla g \cdot \hat{p\|}} \, dA \\
+        \hat{n} &= \frac{\vec{r}_u \times \vec{r}_v}{\|\vec{r}_u \times \vec{r}_v\|} = \frac{\nabla g}{\|\nabla g\|}
+      \end{split}
+    \end{align}
+    \item Given that $F = P\hat{i} + Q\hat{j} + R\hat{k}$, $z = g(x,y)$ and $D$ is the projection of $g$ onto $xy$-plane, flux integral can be rewritten like this:
+    \begin{align}
+      \iint\limits_D (-Pg_x - Qg_y + R) \, dA
+    \end{align}
+  \end{itemize}
+  \item If the fluid has a mass density function, $\rho(x,y,z)$, then the mass of the fluid flowing across the surface is given by this:
+  \begin{align}
+    \iint\limits_S \rho\cdot F\cdot\vec{n} \, dS
+  \end{align}
+\end{itemize}
+
+\subsection{Divergence Theorem}
+\begin{itemize}
+  \item If $S$ is a simple closed surface, then we can make flux integral into this:
+  \begin{align}
+    \iiint\limits_T \textrm{Div}F \, dV
+  \end{align}
+\end{itemize}
+
+\subsection{Stoke's Theorem}
+\begin{itemize}
+  \item Stoke's theorem (3D) is similar to Green's theorem (2D), but used when the simple closed curve encloses a region \underline{not on a plane}
+  \item Any surface bounded by $c$ will work
+  \begin{align}
+    w = \oint\limits_c F\cdot dr = \iint\limits_S \textrm{Curl}F\cdot\hat{n} \, dS
+  \end{align}
+\item Then treat Curl$F$ as new vector field, where $P$, $Q$ and $R$ are its components; $S$ is a surface defined with $z=g(x,y)$
+  \begin{align}
+    w = \iint\limits_D (-Pg_x - Qg_y + R) \, dA
+  \end{align}
+  \item Or you can use Divergence theorem if $S$ is a simple closed surface (a rare situation)
+  \begin{align}
+    w = \iiint\limits_T \textrm{Div}(\textrm{Curl}F) \, dV
+  \end{align}
+\end{itemize}
+\end{document}

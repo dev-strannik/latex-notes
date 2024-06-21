@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{mathtools} % for Aboxed inside align
+
+
+\graphicspath{{./images/}}
+
+\title{Unit 4}
+\author{Strannik}
+\date{2023 August - 2023 September}
+
+
+\begin{document}
+\maketitle
+\section{Introduction to Double Integrals}
+\begin{itemize}
+  \item The 2D idea of an integral:
+  \begin{enumerate}
+    \item Take interval $[a,b]$ and divide it into $n$ equal parts: $\frac{b - a}{n} = \Delta x$, giving you width of each part
+    \item A point on each subinterval is $x_k^{.}$, where dot means the point can be anywhere on the subinterval
+    \item The area of each subinterval is found by: $f(x_k^{.})\cdot\Delta x$
+    \item You can approximate the total area by summation but to make it exact you must also do limit:
+    \begin{align}
+      \begin{split}
+        A &= \lim_{n \to \infty} \sum_{k = 1}^{n} f(x_k^{.})\cdot\Delta x \\
+        A &= \int_{a}^{b} f(x) \, dx
+      \end{split}
+    \end{align}
+  \end{enumerate}
+  \item The 3D idea of an integral:
+  \begin{enumerate}
+    \item The region is now $x \in [a,b], \, y \in [c,d]$ and it is cut into rectangles, where $m$ is the number of $x$ partitions and $n$ is the number of $y$ partitions
+    \item Sometimes the region is not a rectangle, when that happens, just bound the wierd boundary with a rectangle and create equal partitions, and when you pick the points on those partitions (for example at the center of each), you must ignore those that are not within your original bounds
+    \item Width and length of the rectangles on $xy$-plane are given by: $\frac{b - a}{m} = \Delta x$, $\frac{d - c}{n} = \Delta y$
+    \item A point on each rectangle is now $(x_{ij}^{.}, y_{ij}^{.})$ (usally corner points), so the volume of each subinterval is found by: $f(x_{ij}^{.}, y_{ij}^{.})\cdot\Delta x \Delta y$
+    \item Doubled summation with a limit gives you the total volume, which is the same as double integral:
+    \begin{align}
+      \begin{split}
+        V &= \lim_{m,n \to \infty} \sum_{i = 1}^{m} \sum_{j = 1}^{n} f(x_{ij}^{.}, y_{ij}^{.})\cdot\Delta x \Delta y \\
+        V &= \iint\limits_R f(x,y) \, dxdy = \int^{d}_{c} \int^{b}_{a} f(x,y) \, dxdy
+      \end{split}
+    \end{align}
+  \end{enumerate}
+\end{itemize}
+
+
+\section{Solving Double/Repeated/Iterated Integrals}
+\begin{itemize}
+  \item Tips on solving double integrals:
+  \begin{enumerate}
+    \item Bounds of double integrals are written based on the order of $dxdy$: if $dx$ is first, the $x$-bounds are written on the second integral symbol
+    \item When you get constants as bounds for one variable and functions for another, don't write the functions on "outer" integral bounds, those bounds must be constants
+    \item When you get 2 functions as bounds, choose to do $dx$ or $dy$ first based on how many times you will need to switch functions (as little as possible would be great), and then find constants for the last bounds (recall the idea of bounding the region with a rectangle)
+    \item When doing $u$-substitution on double integrals, it is often easier if you change bounds (just plug original bounds into your $u$-substitution)
+    \item It will help if you will include the variables in the bounds of the double integrals ($x = 0$ instead of just $0$), even though it is a bad notation
+  \end{enumerate}
+\end{itemize}
+
+
+\section{Double Integrals in Polar Coordinate System}
+\begin{itemize}
+  \item Sometimes it is much easier to use polars when doing double integrals, but remember: $dA = r\cdot drd\theta$
+  \item When doing double integrals in polar coordinate system, you also always use constants as the last integral bounds, which are for $\theta$
+  \item Volume is equal to area when the "height" = 1 (but they are in different units, so only the number is the same)
+  \begin{align}
+    A = \iint\limits_R \, dA
+  \end{align}
+\end{itemize}
+
+
+\section{Center of Mass \& Moments of Inertia}
+\begin{itemize}
+  \item If the \textbf{lamina} has a mass of $\rho (x,y)$ at any point $(x,y)$, then the mass of the plate is:
+  \begin{align}
+    m = \iint\limits_R \rho (x,y) \, dA
+  \end{align}
+  \item \textbf{First moments of mass}: the tendency for the lamina to rotate about an axis: $M_x$ measures this tendency about $x$-axis and $M_y$ is its measure about $y$-axis
+  \begin{align}
+    \begin{split}
+      M_x &= \iint\limits_R y\cdot\rho (x,y) \, dA \\
+      M_y &= \iint\limits_R x\cdot\rho (x,y) \, dA
+    \end{split}
+  \end{align}
+  \item \textbf{Center of mass} is $(\overline{x},\overline{y})$
+  \begin{align}
+    \begin{split}
+      \overline{x} = \frac{M_y}{m} \\
+      \overline{y} = \frac{M_x}{m}
+    \end{split}
+  \end{align}
+  \item \textbf{Second moments of inertia}: how hard it is to get the lamina moving around an axis (larger values mean harder to move)
+  \begin{align}
+    \begin{split}
+      I_x &= \iint\limits_R y^2 \cdot\rho (x,y) \, dA \\
+      I_y &= \iint\limits_R x^2 \cdot\rho (x,y) \, dA
+    \end{split}
+  \end{align}
+  \item \textbf{Raudius of Gyration}:
+  \begin{align}
+    \begin{split}
+      \overline{\overline{x}} = \sqrt{\frac{I_y}{m}} \\
+      \overline{\overline{y}} = \sqrt{\frac{I_x}{m}}
+    \end{split}
+  \end{align}
+\end{itemize}
+
+
+\section{Triple Integrals}
+\begin{align}
+  \iiint\limits_T f(x,y,z) \, dV
+\end{align}
+\begin{itemize}
+  \item Single integrals can represent area under $f(x)$ or mass of a straight wire (when $f(x)$ is a mass density function)
+  \item Double integrals can represent volume under $f(x,y)$ or mass of a thin plate (when $f(x,y)$ is a mass density function)
+  \item Triple integrals can represent some measurement of region under $f(x,y,z)$ or mass of a plate with thickness (when $f(x,y,z)$ is a mass density function)
+  \item Solving a triple integral:
+  \begin{enumerate}
+    \item Define $T$ between 2 surfaces
+    \item When given 2 eqations, find the intersection curve and then graph it
+    \item This take care of the first integral, then you will just have to solve double integral
+    \item Sometimes it is much easier if you change this double integral to cylindrical
+    \item The $R$ on the remaining double integral can be on $xy$, $xz$ or $yz$-plane
+  \end{enumerate}
+  \item $dV = dxdydz$, so a triple integral can be evaluated in any order
+  \item $x/y/z$-simple:
+  \begin{itemize}
+    \item $z$-simple is when a 3D region is defined by two $z = f(x,y)$ functions ($R$ is on $xy$-plane)
+    \item $y$-simple is when a 3D region is defined by two $y = f(x,z)$ functions ($R$ is on $xz$-plane)
+    \item $x$-simple is when a 3D region is defined by two $x = f(y,z)$ functions ($R$ is on $yz$-plane)
+    \item Volume can also be found this wierd way:
+    \begin{align}
+      V = \iiint\limits_T 1 \, dV
+    \end{align}
+  \end{itemize}
+  \item Center of Mass, $(\overline{x}, \overline{y}, \overline{z})$:
+  \begin{align}
+    \begin{split}
+      \overline{x} = \frac{M_{yz}}{m} \\
+      \overline{y} = \frac{M_{xz}}{m} \\
+      \overline{z} = \frac{M_{xy}}{m}
+    \end{split}
+  \end{align}
+  \item First moments of mass about $yz/xz/xy$-planes:
+  \begin{align}
+    \begin{split}
+      M_{yz} = \iiint\limits_T x\cdot\rho(x,y,z) \, dV \\
+      M_{xz} = \iiint\limits_T y\cdot\rho(x,y,z) \, dV \\
+      M_{xy} = \iiint\limits_T z\cdot\rho(x,y,z) \, dV
+    \end{split}
+  \end{align}
+  \item Second moments of inertia about $x/y/z$-axes:
+  \begin{align}
+    \begin{split}
+      I_x = \iiint\limits_T (y^2 + z^2)\cdot\rho(x,y,z) \, dV \\
+      I_y = \iiint\limits_T (x^2 + z^2)\cdot\rho(x,y,z) \, dV \\
+      I_z = \iiint\limits_T (x^2 + y^2)\cdot\rho(x,y,z) \, dV
+    \end{split}
+  \end{align}
+  \item Triple integrals in cylindrical coordinate system:
+  \begin{align}
+    \int_{\theta_1}^{\theta_2}\int_{r_1}^{r_2}\int_{z_1}^{z_2} f(r\cos(\theta), r\sin(\theta), z)r \, dzdrd\theta
+  \end{align}
+  \item Triple integrals in spherical coordinate system:
+  \begin{align}
+    \int_{\theta_1}^{\theta_2}\int_{\phi_1}^{\phi_2}\int_{\rho_1}^{\rho_2} f(\rho\sin(\phi)\cos(\theta), \rho\sin(\phi)\sin(\theta), \rho\cos(\phi))\rho^2\sin(\phi) \, d\rho d\phi d\theta
+  \end{align}
+  \item If your bounding eqation is wierd, make $x$ equal to 0 and graph it (this should help you with $\rho$ and $\phi$)
+  \item If you get a zero as your answer for spherical triple integrals, try changing $\theta$ bounds (works only if the region is symmetric)
+\end{itemize}
+
+
+\section{Changing Variables \& The Jacobian}
+\begin{itemize}
+  \item When your bounds are wierd, you can redefine them using different variables ($u$, $v$, $w$ instead of $x$, $y$, $z$)
+  \begin{align}
+    \iint\limits_R f(x,y) \, dA \quad\rightarrow\quad \iint\limits_S f(g(u,v),h(u,v))\cdot J \, dudv
+  \end{align}
+  \item When given the transformation, plug it into your bounds
+  \item $J$ is the \textbf{Jacobian} and to find it do determinant (see Unit 1 for 3 by 3 matrix determinant):
+  \begin{align}
+    J =
+    \begin{vmatrix}
+      \frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+      \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+    \end{vmatrix}
+    = \frac{\partial x}{\partial u} \cdot \frac{\partial y}{\partial v} - \frac{\partial x}{\partial v} \cdot \frac{\partial y}{\partial u}
+  \end{align}
+  \item $r$ in $r\cdot drd\theta$ is the \underline{Jacobian} of your double integral that was \underline{transformed} to polar
+\end{itemize}
+\end{document}
